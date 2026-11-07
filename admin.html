@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="fr"><head><meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Espace vendeur</title><link rel="stylesheet" href="style.css"></head>
+<body><div id="banner" class="banner hidden" role="status"></div><main>
+<h1>Espace vendeur</h1>
+<section id="login"><label for="magasin">Magasin</label><select id="magasin"></select>
+<label for="code">Code vendeur (4 chiffres)</label>
+<input id="code" inputmode="numeric" maxlength="4" pattern="[0-9]{4}" autocomplete="off">
+<div class="err" id="erreur" role="alert"></div><button id="connexion">Se connecter</button></section>
+<section id="dash" class="hidden"><p class="sub" id="titre"></p><button class="alt" id="quitter">Se déconnecter</button>
+<div id="liste"></div></section></main>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js"></script>
+<script src="config.js"></script><script src="admin.js"></script></body></html>
