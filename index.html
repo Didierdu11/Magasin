@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Réservation Produits - Multi-Magasins</title>
+  <link rel="stylesheet" href="style.css">
+  <!-- Supabase JS CDN -->
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+  <!-- jsPDF pour la génération du PDF -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+</head>
+<body>
+
+  <header>
+    <h1>🛍️ Système de Réservation</h1>
+    <button id="btn-toggle-view" class="btn-secondary">Espace Vendeur</button>
+  </header>
+
+  <main class="container">
+    
+    <!-- VUE ACHETEUR -->
+    <section id="view-client" class="view active">
+      <h2>Espace Client - Réserver un produit</h2>
+      
+      <form id="form-reservation">
+        <fieldset>
+          <legend>1. Vos Coordonnées</legend>
+          <div class="form-group-row">
+            <input type="text" id="client-nom" placeholder="Nom" required>
+            <input type="text" id="client-prenom" placeholder="Prénom" required>
+          </div>
+          <div class="form-group-row">
+            <input type="tel" id="client-tel" placeholder="Téléphone" required>
+            <input type="email" id="client-email" placeholder="Email" required>
+          </div>
+        </fieldset>
+
+        <fieldset>
+          <legend>2. Choix du Magasin</legend>
+          <select id="select-magasin" required>
+            <option value="">-- Sélectionnez un magasin --</option>
+          </select>
+        </fieldset>
+
+        <fieldset id="section-produits" style="display:none;">
+          <legend>3. Sélection des Produits</legend>
+          <div id="produits-list" class="produits-grid"></div>
+        </fieldset>
+
+        <div id="recap-panier" style="display:none;" class="card-recap">
+          <h3>Total : <span id="total-prix">0.00</span> €</h3>
+          <button type="submit" id="btn-valider" class="btn-primary">Valider la réservation</button>
+        </div>
+      </form>
+    </section>
+
+    <!-- VUE VENDEUR -->
+    <section id="view-vendeur" class="view">
+      <h2>Espace Vendeur</h2>
+      
+      <div id="vendeur-login" class="card-auth">
+        <h3>Connexion Vendeur</h3>
+        <select id="vendeur-select-magasin" required>
+          <option value="">-- Choisissez votre magasin --</option>
+        </select>
+        <input type="password" id="vendeur-password" placeholder="Mot de passe du magasin">
+        <button id="btn-connexion-vendeur" class="btn-primary">Accéder au tableau de bord</button>
+      </div>
+
+      <div id="vendeur-dashboard" style="display:none;">
+        <div class="dashboard-header">
+          <h3 id="dashboard-title">Magasin</h3>
+          <button id="btn-logout" class="btn-danger">Déconnexion</button>
+        </div>
+
+        <div class="kpi-container">
+          <div class="kpi-card">
+            <h4>Reservations en cours</h4>
+            <span id="kpi-count-pending">0</span>
+          </div>
+          <div class="kpi-card">
+            <h4>Total Produits réservés</h4>
+            <span id="kpi-items-count">0</span>
+          </div>
+        </div>
+
+        <h3>Liste des réservations</h3>
+        <table class="table-reservations">
+          <thead>
+            <tr>
+              <th>Date / Heure</th>
+              <th>Client</th>
+              <th>Contact</th>
+              <th>Statut</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="reservations-tbody"></tbody>
+        </table>
+      </div>
+    </section>
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+</html>
